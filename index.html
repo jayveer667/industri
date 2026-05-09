@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SteelForge Industries | World-Class Manufacturing</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;900&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --primary: #FF6B00;
+    --primary-dark: #cc5500;
+    --accent: #FFB347;
+    --dark: #0a0a0a;
+    --dark2: #111111;
+    --dark3: #1a1a1a;
+    --dark4: #222222;
+    --steel: #2c3e50;
+    --steel-light: #34495e;
+    --light: #f0f0f0;
+    --white: #ffffff;
+    --gray: #888;
+    --gray-light: #ccc;
+    --success: #27ae60;
+    --font-display: 'Bebas Neue', cursive;
+    --font-body: 'Barlow', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--dark);
+    color: var(--light);
+    overflow-x: hidden;
+  }
+
+  /* ========== SCROLLBAR ========== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark2); }
+  ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+  /* ========== NAVBAR ========== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid var(--primary);
+    padding: 0 2rem;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--primary);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: white;
+  }
+  .nav-logo-text {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+  .nav-logo-text span { color: var(--primary); }
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--gray-light);
+    text-decoration: none;
+    font-family: var(--font-cond);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0 1rem;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  .nav-cta {
+    background: var(--primary);
+    color: white !important;
+    border-bottom: none !important;
+    padding: 0.5rem 1.5rem !important;
+    height: auto !important;
+    border-radius: 2px;
+    font-size: 0.8rem !important;
+  }
+  .nav-cta:hover { background: var(--primary-dark) !important; }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+  }
+  .hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--white);
+    transition: all 0.3s;
+  }
+
+  /* ========== SECTIONS ========== */
+  .page-section {
+    display: none;
+    min-height: 100vh;
+    padding-top: 70px;
+  }
+  .page-section.active { display: block; }
+
+  /* ========== SECTION HEADER ========== */
+  .section-header {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+  }
+  .section-tag {
+    font-family: var(--font-cond);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--gray);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .title-line {
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    margin: 1.5rem auto;
+    position: relative;
+  }
+  .title-line::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 0;
+    width: 15px;
+    height: 4px;
+    background: var(--accent);
+  }
+
+  /* ========== BUTTONS ========== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.9rem 2rem;
+    font-family: var(--font-cond);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    border-radius: 2px;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,107,0,0.4);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+  }
+  .btn-outline:hover {
+    background: var(--white);
+    color: var(--dark);
+  }
+
+  /* ========== HERO SECTION ========== */
+  #hero-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    padding-top: 70px;
+  }
+  .hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .hero-slide.active { opacity: 1; }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.05);
+    transition: transform 8s ease;
+  }
+  .hero-slide.active .hero-bg { transform: scale(1); }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.5) 50%, rgba(255,107,0,0.1) 100%);
+  }
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 6vw;
+  }
+  .hero-text { max-width: 700px; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,107,0,0.2);
+    border: 1px solid var(--primary);
+    padding: 0.4rem 1rem;
+    font-family: var(--font-cond);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    line-height: 0.9;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title span { color: var(--primary); }
+  .hero-desc {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-stats {
+    position: absolute;
+    bottom: 3rem;
+    right: 6vw;
+    display: flex;
+    gap: 2rem;
+  }
+  .hero-stat {
+    text-align: center;
+    padding: 1.2rem 1.5rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,107,0,0.3);
+    backdrop-filter: blur(10px);
+  }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    color: var(--gray);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+  .slider-dots {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dot.active {
+    width: 30px;
+    border-radius: 4px;
+    background: var(--primary);
+  }
+  .slider-arrows {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 6vw;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  .arrow-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+  .arrow-btn:hover { background: var(--primary); border-color: var(--primary); }
+
+  /* ========== ABOUT SECTION ========== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 2rem 6vw 5rem;
+    align-items: center;
+  }
+  .about-image-wrap {
+    position: relative;
+  }
+  .about-main-img {
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,107,0,0.3);
+  }
+  .about-main-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF6B00' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .about-factory-visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .factory-icon {
+    font-size: 6rem;
+    color: var(--primary);
+    opacity: 0.8;
+  }
+  .factory-label {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.5);
+  }
+  .about-corner-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 120px;
+    height: 120px;
+    background: var(--primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-corner-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: white;
+    line-height: 1;
+  }
+  .about-corner-text {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .about-content { padding-left: 2rem; }
+  .about-features { margin-top: 2rem; }
+  .about-feature {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: var(--dark3);
+    border-left: 3px solid var(--primary);
+    transition: all 0.3s;
+  }
+  .about-feature:hover { background: var(--dark4); transform: translateX(5px); }
+  .af-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(255,107,0,0.15);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .af-title {
+    font-family: var(--font-cond);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .af-text { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+  /* ========== SERVICES SECTION ========== */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    padding: 2rem 6vw 5rem;
+    background: rgba(255,107,0,0.1);
+  }
+  .service-card {
+    background: var(--dark2);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+    transform-origin: left;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: var(--dark3); transform: translateY(-5px); }
+  .service-num {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: rgba(255,107,0,0.1);
+    line-height: 1;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    transition: all 0.4s;
+  }
+  .service-card:hover .service-num { color: rgba(255,107,0,0.2); }
+  .service-icon {
+    width: 55px;
+    height: 55px;
+    background: rgba(255,107,0,0.15);
+    border: 1px solid rgba(255,107,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .service-title {
+    font-family: var(--font-cond);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .service-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.5rem; }
+  .service-link {
+    font-family: var(--font-cond);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ========== PRODUCTS SECTION ========== */
+  .products-filter {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    padding: 0 2rem;
+  }
+  .filter-btn {
+    padding: 0.5rem 1.5rem;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--gray);
+    font-family: var(--font-cond);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 0 6vw 5rem;
+  }
+  .product-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .product-card:hover {
+    border-color: rgba(255,107,0,0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .product-img {
+    height: 200px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: var(--primary);
+    position: relative;
+    overflow: hidden;
+  }
+  .product-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FF6B00' fill-opacity='0.05'%3E%3Crect x='0' y='0' width='20' height='20'/%3E%3Crect x='20' y='20' width='20' height='20'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .product-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--primary);
+    padding: 0.3rem 0.8rem;
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+  }
+  .product-body { padding: 1.5rem; }
+  .product-cat {
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  .product-name {
+    font-family: var(--font-cond);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .product-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .spec-tag {
+    padding: 0.2rem 0.6rem;
+    background: rgba(255,107,0,0.1);
+    border: 1px solid rgba(255,107,0,0.2);
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-family: var(--font-cond);
+    letter-spacing: 1px;
+  }
+
+  /* ========== TEAM SECTION ========== */
+  .team-slider-wrap {
+    padding: 2rem 6vw 5rem;
+    position: relative;
+  }
+  .team-slider {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .team-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s;
+  }
+  .team-card:hover {
+    border-color: rgba(255,107,0,0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+  }
+  .team-card-top {
+    height: 240px;
+    background: linear-gradient(135deg, var(--steel) 0%, var(--dark3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .team-card-top::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
+  }
+  .team-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    background: var(--dark4);
+    position: relative;
+    z-index: 1;
+    color: var(--primary);
+  }
+  .team-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--primary);
+    padding: 0.25rem 0.7rem;
+    font-family: var(--font-cond);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+  }
+  .team-body { padding: 1.5rem; }
+  .team-name {
+    font-family: var(--font-cond);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .team-role {
+    font-family: var(--font-cond);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+  .team-dept {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,107,0,0.1);
+    border: 1px solid rgba(255,107,0,0.2);
+    padding: 0.3rem 0.8rem;
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-family: var(--font-cond);
+    letter-spacing: 1px;
+  }
+  .team-info { margin: 1rem 0; }
+  .team-info-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--gray);
+  }
+  .team-info-row i { color: var(--primary); width: 16px; }
+  .team-social {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .social-btn {
+    width: 35px;
+    height: 35px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+  }
+  .social-btn:hover { background: var(--primary); border-color: var(--primary); color: white; }
+  .team-exp {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: rgba(255,107,0,0.08);
+    line-height: 1;
+  }
+
+  /* Team Slider Navigation */
+  .team-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .team-nav-btn {
+    width: 45px;
+    height: 45px;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    font-size: 1rem;
+  }
+  .team-nav-btn:hover { background: var(--primary); border-color: var(--primary); }
+  .team-nav-info {
+    font-family: var(--font-cond);
+    font-size: 0.85rem;
+    color: var(--gray);
+    letter-spacing: 2px;
+  }
+  .team-nav-info span { color: var(--primary); }
+
+  /* ========== PROJECTS SECTION ========== */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+    padding: 2rem 6vw 5rem;
+  }
+  .project-card {
+    background: var(--dark2);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s;
+  }
+  .project-card:first-child {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+  .project-visual {
+    height: 250px;
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    color: var(--primary);
+    opacity: 0.6;
+  }
+  .project-card:first-child .project-visual { height: 320px; }
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    transform: translateY(30%);
+    transition: all 0.4s;
+  }
+  .project-card:hover .project-overlay { transform: translateY(0); }
+  .project-cat {
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  .project-name {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  .project-loc {
+    font-size: 0.82rem;
+    color: var(--gray-light);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 1rem;
+  }
+  .project-stats {
+    display: flex;
+    gap: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.4s 0.1s;
+  }
+  .project-card:hover .project-stats { opacity: 1; }
+  .pstat { text-align: center; }
+  .pstat-num { font-family: var(--font-display); font-size: 1.5rem; color: var(--primary); }
+  .pstat-label { font-size: 0.65rem; font-family: var(--font-cond); letter-spacing: 1px; color: var(--gray); text-transform: uppercase; }
+
+  /* ========== STATS SECTION ========== */
+  .stats-section {
+    background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
+    padding: 5rem 6vw;
+    position: relative;
+    overflow: hidden;
+  }
+  .stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary), var(--accent), var(--primary), transparent);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .stat-item {
+    padding: 2rem;
+    position: relative;
+  }
+  .stat-item::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  .stat-item:last-child::after { display: none; }
+  .stat-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-unit {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--primary);
+  }
+  .stat-label {
+    font-family: var(--font-cond);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 0.5rem;
+  }
+
+  /* ========== CAREERS SECTION ========== */
+  .careers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem 6vw 5rem;
+  }
+  .job-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .job-card:hover { border-color: rgba(255,107,0,0.3); background: var(--dark3); }
+  .job-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+  }
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  .job-title {
+    font-family: var(--font-cond);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .job-type {
+    background: rgba(39,174,96,0.15);
+    border: 1px solid rgba(39,174,96,0.3);
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    font-family: var(--font-cond);
+    letter-spacing: 1px;
+    color: var(--success);
+  }
+  .job-dept {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary);
+    font-size: 0.82rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-cond);
+  }
+  .job-details {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .job-detail {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
+  .job-detail i { color: var(--primary); font-size: 0.75rem; }
+  .job-skills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .skill-tag {
+    padding: 0.2rem 0.7rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.7rem;
+    color: var(--gray-light);
+    font-family: var(--font-cond);
+  }
+  .job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .job-salary { font-family: var(--font-display); font-size: 1.3rem; color: var(--primary); }
+  .job-salary span { font-family: var(--font-body); font-size: 0.75rem; color: var(--gray); }
+
+  /* ========== NEWS SECTION ========== */
+  .news-slider-wrap {
+    padding: 2rem 6vw 5rem;
+  }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .news-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .news-card:hover { border-color: rgba(255,107,0,0.3); transform: translateY(-5px); }
+  .news-img {
+    height: 200px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: var(--primary);
+    opacity: 0.7;
+    position: relative;
+  }
+  .news-date {
+    position: absolute;
+    bottom: 0; left: 0;
+    background: var(--primary);
+    padding: 0.3rem 0.8rem;
+    font-family: var(--font-cond);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: white;
+  }
+  .news-body { padding: 1.5rem; }
+  .news-cat {
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  .news-title {
+    font-family: var(--font-cond);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+  .news-excerpt { font-size: 0.85rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.2rem; }
+  .news-meta {
+    display: flex;
+    gap: 1.2rem;
+    font-size: 0.78rem;
+    color: var(--gray);
+    font-family: var(--font-cond);
+  }
+  .news-meta span { display: flex; align-items: center; gap: 4px; }
+  .news-meta i { color: var(--primary); }
+
+  /* ========== CSR SECTION ========== */
+  .csr-content { padding: 2rem 6vw 5rem; }
+  .csr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+  .csr-card {
+    background: var(--dark2);
+    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .csr-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+  }
+  .csr-card:hover { border-color: rgba(255,107,0,0.3); transform: translateY(-3px); }
+  .csr-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .csr-title {
+    font-family: var(--font-cond);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .csr-text { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.2rem; }
+  .csr-progress { margin-top: 1.5rem; }
+  .csr-prog-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--gray-light);
+    margin-bottom: 0.4rem;
+    font-family: var(--font-cond);
+  }
+  .prog-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.8rem;
+  }
+  .prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 3px;
+    transition: width 2s ease;
+  }
+
+  /* ========== CONTACT SECTION ========== */
+  .contact-wrapper { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; padding: 2rem 6vw 5rem; }
+  .contact-info h3 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .contact-info p { font-size: 0.95rem; color: var(--gray); line-height: 1.8; margin-bottom: 2rem; }
+  .contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: var(--dark2);
+    border-left: 3px solid var(--primary);
+  }
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,107,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+  .contact-detail h4 { font-family: var(--font-cond); font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); }
+  .contact-detail p { color: var(--white); font-size: 0.9rem; margin: 0.2rem 0 0; }
+  .contact-form { background: var(--dark2); padding: 2.5rem; border: 1px solid rgba(255,255,255,0.05); }
+  .contact-form h3 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--white);
+    margin-bottom: 2rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block;
+    font-family: var(--font-cond);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 0.8rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--primary); background: var(--dark4); }
+  .form-group textarea { height: 120px; resize: vertical; }
+  .form-group select option { background: var(--dark3); }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--dark2);
+    border-top: 2px solid rgba(255,107,0,0.3);
+    padding: 4rem 6vw 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand p { font-size: 0.9rem; color: var(--gray); line-height: 1.8; margin: 1rem 0; }
+  .footer-social { display: flex; gap: 0.5rem; }
+  .footer-heading {
+    font-family: var(--font-cond);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+  }
+  .footer-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--primary);
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.7rem; }
+  .footer-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer-links a:hover { color: var(--primary); padding-left: 5px; }
+  .footer-links a::before { content: '→'; color: var(--primary); font-size: 0.7rem; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-copy { font-size: 0.82rem; color: var(--gray); }
+  .footer-copy span { color: var(--primary); }
+  .footer-legal { display: flex; gap: 1.5rem; }
+  .footer-legal a { color: var(--gray); text-decoration: none; font-size: 0.82rem; transition: color 0.3s; }
+  .footer-legal a:hover { color: var(--primary); }
+
+  /* ========== TICKER ========== */
+  .news-ticker {
+    background: var(--primary);
+    padding: 0.5rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex;
+    gap: 4rem;
+    animation: ticker 30s linear infinite;
+    font-family: var(--font-cond);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: white;
+  }
+  .ticker-inner i { opacity: 0.7; margin-right: 0.5rem; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ========== BACK TO TOP ========== */
+  .back-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 45px;
+    height: 45px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  .back-top.visible { opacity: 1; pointer-events: all; }
+  .back-top:hover { background: var(--primary-dark); transform: translateY(-3px); }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .anim-up { animation: fadeInUp 0.6s ease forwards; }
+  .anim-left { animation: fadeInLeft 0.6s ease forwards; }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1200px) {
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .project-card:first-child { grid-column: 1 / 3; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 70px; left: 0; right: 0;
+      background: rgba(10,10,10,0.98);
+      padding: 2rem;
+      gap: 0;
+      border-top: 1px solid rgba(255,107,0,0.3);
+    }
+    .nav-links.open a {
+      height: auto;
+      padding: 0.8rem 1rem;
+      border-left: 3px solid transparent;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-links.open a.active, .nav-links.open a:hover { border-left-color: var(--primary); border-bottom-color: rgba(255,255,255,0.05); }
+    .hero-stats { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-content { padding-left: 0; }
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .csr-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card:first-child { grid-column: 1; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .hero-title { font-size: 3rem; }
+    .section-title { font-size: 2.2rem; }
+    .hero-btns { flex-direction: column; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-item::after { display: none; }
+  }
+
+  /* ========== MOBILE NAV OVERLAY ========== */
+  .mobile-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+  }
+  .mobile-overlay.open { display: block; }
+
+  /* ========== LOADING ANIMATION ========== */
+  .page-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--dark);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all 0.5s;
+  }
+  .page-loader.hidden { opacity: 0; pointer-events: none; }
+  .loader-logo {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: var(--white);
+    letter-spacing: 5px;
+  }
+  .loader-logo span { color: var(--primary); }
+  .loader-bar {
+    width: 200px;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .loader-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 3px;
+    animation: load 2s ease forwards;
+    width: 0;
+  }
+  @keyframes load { to { width: 100%; } }
+  .loader-text {
+    font-family: var(--font-cond);
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray);
+    animation: pulse 1s infinite;
+  }
+
+  /* Separator line */
+  .sep { width: 100%; height: 1px; background: rgba(255,255,255,0.05); margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- PAGE LOADER -->
+<div class="page-loader" id="loader">
+  <div class="loader-logo">STEEL<span>FORGE</span></div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-text">Loading Industries...</div>
+</div>
+
+<!-- NEWS TICKER -->
+<div class="news-ticker">
+  <div class="ticker-inner">
+    <span><i class="fas fa-industry"></i> SteelForge Industries Q1 2026 Revenue Up 23% YoY</span>
+    <span><i class="fas fa-award"></i> ISO 9001:2026 Certified Excellence Award Received</span>
+    <span><i class="fas fa-globe"></i> New Plant Expansion in Rajasthan — 500+ New Jobs</span>
+    <span><i class="fas fa-chart-line"></i> Record Production: 2.5 Million Units This Quarter</span>
+    <span><i class="fas fa-handshake"></i> Strategic Partnership with TechAlloy Corp Announced</span>
+    <span><i class="fas fa-leaf"></i> 40% Carbon Reduction Target Achieved by March 2026</span>
+    <span><i class="fas fa-industry"></i> SteelForge Industries Q1 2026 Revenue Up 23% YoY</span>
+    <span><i class="fas fa-award"></i> ISO 9001:2026 Certified Excellence Award Received</span>
+    <span><i class="fas fa-globe"></i> New Plant Expansion in Rajasthan — 500+ New Jobs</span>
+    <span><i class="fas fa-chart-line"></i> Record Production: 2.5 Million Units This Quarter</span>
+    <span><i class="fas fa-handshake"></i> Strategic Partnership with TechAlloy Corp Announced</span>
+    <span><i class="fas fa-leaf"></i> 40% Carbon Reduction Target Achieved by March 2026</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#" onclick="showPage('home')">
+    <div class="nav-logo-icon"><i class="fas fa-industry"></i></div>
+    <div class="nav-logo-text">STEEL<span>FORGE</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" class="active" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('about')">About</a></li>
+    <li><a href="#" onclick="showPage('services')">Services</a></li>
+    <li><a href="#" onclick="showPage('products')">Products</a></li>
+    <li><a href="#" onclick="showPage('team')">Team</a></li>
+    <li><a href="#" onclick="showPage('projects')">Projects</a></li>
+    <li><a href="#" onclick="showPage('careers')">Careers</a></li>
+    <li><a href="#" onclick="showPage('news')">News</a></li>
+    <li><a href="#" onclick="showPage('csr')">CSR</a></li>
+    <li><a href="#" class="nav-cta" onclick="showPage('contact')">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleNav()"></div>
+
+<!-- ============================= PAGE 1: HOME ============================= -->
+<section class="page-section active" id="page-home">
+  <div id="hero-section">
+    <div class="hero-slider" id="heroSlider">
+      <!-- Slide 1 -->
+      <div class="hero-slide active">
+        <div class="hero-bg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-text">
+            <div class="hero-badge"><i class="fas fa-circle" style="font-size:8px;animation:pulse 1s infinite"></i> Est. 1998 — 28 Years of Excellence</div>
+            <h1 class="hero-title">FORGING THE<br><span>FUTURE</span><br>OF STEEL</h1>
+            <p class="hero-desc">World-class manufacturing solutions with cutting-edge technology, delivering excellence across industries for over 28 years.</p>
+            <div class="hero-btns">
+              <a class="btn btn-primary" href="#" onclick="showPage('services')"><i class="fas fa-cogs"></i> Our Services</a>
+              <a class="btn btn-outline" href="#" onclick="showPage('about')"><i class="fas fa-play"></i> Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="hero-slide">
+        <div class="hero-bg" style="background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #0a0a0a 100%);"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-text">
+            <div class="hero-badge"><i class="fas fa-award"></i> ISO 9001:2026 Certified</div>
+            <h1 class="hero-title">PRECISION<br><span>ENGINEERING</span><br>SOLUTIONS</h1>
+            <p class="hero-desc">From raw materials to finished products, our precision manufacturing sets industry standards worldwide.</p>
+            <div class="hero-btns">
+              <a class="btn btn-primary" href="#" onclick="showPage('products')"><i class="fas fa-boxes"></i> View Products</a>
+              <a class="btn btn-outline" href="#" onclick="showPage('projects')">Our Projects</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="hero-slide">
+        <div class="hero-bg" style="background: linear-gradient(135deg, #1a0a00 0%, #2c1a0a 50%, #0a0a0a 100%);"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-text">
+            <div class="hero-badge"><i class="fas fa-leaf"></i> Green Manufacturing Leader 2026</div>
+            <h1 class="hero-title">BUILDING A<br><span>SUSTAINABLE</span><br>TOMORROW</h1>
+            <p class="hero-desc">Leading the industry in sustainable manufacturing with zero-waste processes and renewable energy integration.</p>
+            <div class="hero-btns">
+              <a class="btn btn-primary" href="#" onclick="showPage('csr')"><i class="fas fa-leaf"></i> Our CSR</a>
+              <a class="btn btn-outline" href="#" onclick="showPage('contact')">Get in Touch</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Stats -->
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">28<span style="font-size:1.5rem">+</span></div>
+        <div class="hero-stat-label">Years Experience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">150<span style="font-size:1.5rem">+</span></div>
+        <div class="hero-stat-label">Global Clients</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">5000<span style="font-size:1.5rem">+</span></div>
+        <div class="hero-stat-label">Employees</div>
+      </div>
+    </div>
+    <!-- Dots & Arrows -->
+    <div class="slider-dots" id="sliderDots">
+      <div class="dot active" onclick="goToSlide(0)"></div>
+      <div class="dot" onclick="goToSlide(1)"></div>
+      <div class="dot" onclick="goToSlide(2)"></div>
+    </div>
+    <div class="slider-arrows">
+      <button class="arrow-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+      <button class="arrow-btn" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+
+  <!-- Stats Strip -->
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fas fa-industry"></i></div>
+        <div><span class="stat-num" data-target="12">0</span><span class="stat-unit">+</span></div>
+        <div class="stat-label">Manufacturing Plants</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div><span class="stat-num" data-target="5000">0</span><span class="stat-unit">+</span></div>
+        <div class="stat-label">Skilled Employees</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fas fa-globe"></i></div>
+        <div><span class="stat-num" data-target="45">0</span><span class="stat-unit">+</span></div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon"><i class="fas fa-award"></i></div>
+        <div><span class="stat-num" data-target="98">0</span><span class="stat-unit">%</span></div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Services Preview -->
+  <div style="padding: 4rem 6vw; background: var(--dark3);">
+    <div class="section-header" style="padding: 0 0 2.5rem;">
+      <span class="section-tag">What We Do</span>
+      <h2 class="section-title">CORE CAPABILITIES</h2>
+      <div class="title-line"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+      <div style="text-align:center;padding:2rem 1rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(255,107,0,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'" onclick="showPage('services')">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.8rem;"><i class="fas fa-fire"></i></div>
+        <div style="font-family:var(--font-cond);font-weight:700;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;">Steel Casting</div>
+      </div>
+      <div style="text-align:center;padding:2rem 1rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(255,107,0,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'" onclick="showPage('services')">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.8rem;"><i class="fas fa-cogs"></i></div>
+        <div style="font-family:var(--font-cond);font-weight:700;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;">Precision Machining</div>
+      </div>
+      <div style="text-align:center;padding:2rem 1rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(255,107,0,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'" onclick="showPage('services')">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.8rem;"><i class="fas fa-robot"></i></div>
+        <div style="font-family:var(--font-cond);font-weight:700;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;">Automation</div>
+      </div>
+      <div style="text-align:center;padding:2rem 1rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(255,107,0,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'" onclick="showPage('services')">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.8rem;"><i class="fas fa-drafting-compass"></i></div>
+        <div style="font-family:var(--font-cond);font-weight:700;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;">Engineering Design</div>
+      </div>
+      <div style="text-align:center;padding:2rem 1rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(255,107,0,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.05)'" onclick="showPage('services')">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.8rem;"><i class="fas fa-truck"></i></div>
+        <div style="font-family:var(--font-cond);font-weight:700;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;">Logistics</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div style="background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);padding:4rem 6vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;">
+    <div>
+      <h2 style="font-family:var(--font-display);font-size:2.5rem;color:white;margin-bottom:0.5rem;">READY TO BUILD SOMETHING GREAT?</h2>
+      <p style="color:rgba(255,255,255,0.8);font-size:1rem;">Partner with India's leading steel manufacturing company.</p>
+    </div>
+    <a class="btn" style="background:white;color:var(--primary);" href="#" onclick="showPage('contact')"><i class="fas fa-arrow-right"></i> Get A Quote</a>
+  </div>
+
+  <footer id="footer-home">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="font-family:var(--font-display);font-size:2rem;margin-bottom:0.5rem;">STEEL<span style="color:var(--primary)">FORGE</span></div>
+        <div style="font-family:var(--font-cond);font-size:0.7rem;letter-spacing:3px;color:var(--gray);margin-bottom:0.8rem;">INDUSTRIES LIMITED</div>
+        <p>World-class steel manufacturing company providing innovative solutions to global industries since 1998.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('about')">About Us</a></li>
+          <li><a href="#" onclick="showPage('services')">Services</a></li>
+          <li><a href="#" onclick="showPage('products')">Products</a></li>
+          <li><a href="#" onclick="showPage('team')">Our Team</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Industries</div>
+        <ul class="footer-links">
+          <li><a href="#">Automotive</a></li>
+          <li><a href="#">Construction</a></li>
+          <li><a href="#">Aerospace</a></li>
+          <li><a href="#">Oil & Gas</a></li>
+          <li><a href="#">Railways</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links" style="list-style:none;">
+          <li style="margin-bottom:0.7rem;display:flex;gap:8px;font-size:0.85rem;color:var(--gray);"><i class="fas fa-map-marker-alt" style="color:var(--primary);margin-top:3px;"></i> Plot 45, Industrial Area, Jaipur, Rajasthan 302001</li>
+          <li style="margin-bottom:0.7rem;display:flex;gap:8px;font-size:0.85rem;color:var(--gray);"><i class="fas fa-phone" style="color:var(--primary)"></i> +91 141 4567890</li>
+          <li style="margin-bottom:0.7rem;display:flex;gap:8px;font-size:0.85rem;color:var(--gray);"><i class="fas fa-envelope" style="color:var(--primary)"></i> info@steelforge.in</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <span>SteelForge Industries Limited</span>. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+</section>
+
+<!-- ============================= PAGE 2: ABOUT ============================= -->
+<section class="page-section" id="page-about">
+  <div class="section-header">
+    <span class="section-tag">Who We Are</span>
+    <h2 class="section-title">ABOUT STEELFORGE</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">A legacy of excellence in steel manufacturing, engineering innovation, and industrial leadership since 1998.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-image-wrap">
+      <div class="about-main-img">
+        <div class="about-factory-visual">
+          <div class="factory-icon"><i class="fas fa-industry"></i></div>
+          <div class="factory-label">EST. 1998</div>
+        </div>
+      </div>
+      <div class="about-corner-badge">
+        <div class="about-corner-num">28</div>
+        <div class="about-corner-text">Years of<br>Excellence</div>
+      </div>
+    </div>
+    <div class="about-content">
+      <span class="section-tag">Our Story</span>
+      <h3 style="font-family:var(--font-display);font-size:3rem;color:var(--white);margin-bottom:1rem;line-height:1;">FROM SMALL BEGINNINGS TO GLOBAL EXCELLENCE</h3>
+      <p style="color:var(--gray);line-height:1.8;margin-bottom:1rem;">Founded in 1998 in Jaipur, Rajasthan, SteelForge Industries started as a small fabrication shop with just 12 employees. Today, we are a 5,000+ strong organization with 12 manufacturing facilities across India, serving clients in 45+ countries.</p>
+      <p style="color:var(--gray);line-height:1.8;margin-bottom:2rem;">Our journey has been defined by relentless innovation, commitment to quality, and an unwavering focus on customer satisfaction. We have grown into one of India's most trusted industrial manufacturing companies.</p>
+      <div class="about-features">
+        <div class="about-feature">
+          <div class="af-icon"><i class="fas fa-certificate"></i></div>
+          <div><div class="af-title">ISO 9001:2026 Certified</div><p class="af-text">All our facilities are certified to the latest international quality management standards.</p></div>
+        </div>
+        <div class="about-feature">
+          <div class="af-icon"><i class="fas fa-robot"></i></div>
+          <div><div class="af-title">Industry 4.0 Ready</div><p class="af-text">Fully automated production lines with AI-driven quality control and IoT monitoring.</p></div>
+        </div>
+        <div class="about-feature">
+          <div class="af-icon"><i class="fas fa-leaf"></i></div>
+          <div><div class="af-title">Sustainable Manufacturing</div><p class="af-text">40% carbon footprint reduction achieved; targeting net-zero by 2035.</p></div>
+        </div>
+      </div>
+      <div style="margin-top:2rem;">
+        <a class="btn btn-primary" href="#" onclick="showPage('contact')"><i class="fas fa-handshake"></i> Partner With Us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission Vision Values -->
+  <div style="padding:3rem 6vw;background:var(--dark3);">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;">
+      <div style="padding:2.5rem;background:var(--dark2);border-top:3px solid var(--primary);text-align:center;">
+        <div style="font-size:3rem;color:var(--primary);margin-bottom:1rem;"><i class="fas fa-bullseye"></i></div>
+        <h3 style="font-family:var(--font-display);font-size:1.8rem;color:var(--white);margin-bottom:1rem;">MISSION</h3>
+        <p style="color:var(--gray);line-height:1.7;font-size:0.9rem;">To deliver world-class steel manufacturing solutions that empower industries and create lasting value for our stakeholders.</p>
+      </div>
+      <div style="padding:2.5rem;background:var(--dark2);border-top:3px solid var(--accent);text-align:center;">
+        <div style="font-size:3rem;color:var(--accent);margin-bottom:1rem;"><i class="fas fa-eye"></i></div>
+        <h3 style="font-family:var(--font-display);font-size:1.8rem;color:var(--white);margin-bottom:1rem;">VISION</h3>
+        <p style="color:var(--gray);line-height:1.7;font-size:0.9rem;">To be the most innovative and sustainable industrial manufacturer in Asia, recognized globally for quality excellence.</p>
+      </div>
+      <div style="padding:2.5rem;background:var(--dark2);border-top:3px solid var(--success);text-align:center;">
+        <div style="font-size:3rem;color:var(--success);margin-bottom:1rem;"><i class="fas fa-heart"></i></div>
+        <h3 style="font-family:var(--font-display);font-size:1.8rem;color:var(--white);margin-bottom:1rem;">VALUES</h3>
+        <p style="color:var(--gray);line-height:1.7;font-size:0.9rem;">Integrity, Innovation, Excellence, Safety, and Sustainability form the cornerstone of everything we do.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div style="padding:4rem 6vw;">
+    <div class="section-header" style="padding-bottom:3rem;">
+      <span class="section-tag">Our Journey</span>
+      <h2 class="section-title">MILESTONES</h2>
+      <div class="title-line"></div>
+    </div>
+    <div style="position:relative;max-width:800px;margin:0 auto;">
+      <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(255,107,0,0.2);transform:translateX(-50%);"></div>
+      <div id="timeline"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= PAGE 3: SERVICES ============================= -->
+<section class="page-section" id="page-services">
+  <div class="section-header">
+    <span class="section-tag">What We Offer</span>
+    <h2 class="section-title">OUR SERVICES</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">Comprehensive manufacturing and engineering services designed to meet the most demanding industrial requirements.</p>
+  </div>
+  <div class="services-grid" id="servicesGrid"></div>
+</section>
+
+<!-- ============================= PAGE 4: PRODUCTS ============================= -->
+<section class="page-section" id="page-products">
+  <div class="section-header">
+    <span class="section-tag">Our Portfolio</span>
+    <h2 class="section-title">PRODUCTS</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">A comprehensive range of high-quality industrial products manufactured to the strictest standards.</p>
+  </div>
+  <div class="products-filter">
+    <button class="filter-btn active" onclick="filterProducts('all', this)">All Products</button>
+    <button class="filter-btn" onclick="filterProducts('structural', this)">Structural Steel</button>
+    <button class="filter-btn" onclick="filterProducts('pipes', this)">Pipes & Tubes</button>
+    <button class="filter-btn" onclick="filterProducts('forged', this)">Forged Parts</button>
+    <button class="filter-btn" onclick="filterProducts('castings', this)">Castings</button>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- ============================= PAGE 5: TEAM ============================= -->
+<section class="page-section" id="page-team">
+  <div class="section-header">
+    <span class="section-tag">Our People</span>
+    <h2 class="section-title">LEADERSHIP TEAM</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">Meet the visionary leaders, managers, and supervisors who drive SteelForge's mission of industrial excellence.</p>
+  </div>
+
+  <!-- Department Filter -->
+  <div style="display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;padding:0 2rem 2rem;">
+    <button class="filter-btn active" onclick="filterTeam('all', this)">All Departments</button>
+    <button class="filter-btn" onclick="filterTeam('management', this)">Senior Management</button>
+    <button class="filter-btn" onclick="filterTeam('operations', this)">Operations</button>
+    <button class="filter-btn" onclick="filterTeam('engineering', this)">Engineering</button>
+    <button class="filter-btn" onclick="filterTeam('supervisor', this)">Supervisors</button>
+  </div>
+
+  <div class="team-slider-wrap">
+    <div class="team-slider" id="teamGrid"></div>
+    <div class="team-nav">
+      <button class="team-nav-btn" onclick="prevTeamPage()"><i class="fas fa-chevron-left"></i></button>
+      <div class="team-nav-info">Page <span id="teamPageCur">1</span> of <span id="teamPageTotal">1</span></div>
+      <button class="team-nav-btn" onclick="nextTeamPage()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= PAGE 6: PROJECTS ============================= -->
+<section class="page-section" id="page-projects">
+  <div class="section-header">
+    <span class="section-tag">Our Work</span>
+    <h2 class="section-title">FEATURED PROJECTS</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">Delivering landmark industrial projects across India and internationally with precision and excellence.</p>
+  </div>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<!-- ============================= PAGE 7: CAREERS ============================= -->
+<section class="page-section" id="page-careers">
+  <div class="section-header">
+    <span class="section-tag">Join Our Team</span>
+    <h2 class="section-title">CAREER OPPORTUNITIES</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">Build your career with India's premier steel manufacturer. We're always looking for talented individuals to join our team.</p>
+  </div>
+  <!-- Benefits -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;padding:0 6vw 3rem;">
+    <div style="display:flex;gap:1rem;align-items:center;padding:1.2rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);">
+      <i class="fas fa-shield-alt" style="font-size:1.5rem;color:var(--primary);"></i>
+      <div><div style="font-family:var(--font-cond);font-weight:700;color:var(--white);">Health Insurance</div><div style="font-size:0.8rem;color:var(--gray);">Full family coverage</div></div>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:center;padding:1.2rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);">
+      <i class="fas fa-graduation-cap" style="font-size:1.5rem;color:var(--primary);"></i>
+      <div><div style="font-family:var(--font-cond);font-weight:700;color:var(--white);">Learning & Dev</div><div style="font-size:0.8rem;color:var(--gray);">Annual training budget</div></div>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:center;padding:1.2rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);">
+      <i class="fas fa-home" style="font-size:1.5rem;color:var(--primary);"></i>
+      <div><div style="font-family:var(--font-cond);font-weight:700;color:var(--white);">Housing Allowance</div><div style="font-size:0.8rem;color:var(--gray);">Company accommodation</div></div>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:center;padding:1.2rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);">
+      <i class="fas fa-chart-line" style="font-size:1.5rem;color:var(--primary);"></i>
+      <div><div style="font-family:var(--font-cond);font-weight:700;color:var(--white);">Performance Bonus</div><div style="font-size:0.8rem;color:var(--gray);">Quarterly rewards</div></div>
+    </div>
+  </div>
+  <div class="careers-grid" id="careersGrid"></div>
+</section>
+
+<!-- ============================= PAGE 8: NEWS ============================= -->
+<section class="page-section" id="page-news">
+  <div class="section-header">
+    <span class="section-tag">Latest Updates</span>
+    <h2 class="section-title">NEWS & INSIGHTS</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">Stay updated with the latest news, achievements, and industry insights from SteelForge Industries.</p>
+  </div>
+  <!-- Categories -->
+  <div style="display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;padding:0 2rem 2rem;">
+    <button class="filter-btn active">All News</button>
+    <button class="filter-btn">Company News</button>
+    <button class="filter-btn">Industry</button>
+    <button class="filter-btn">Sustainability</button>
+    <button class="filter-btn">Innovation</button>
+  </div>
+  <div class="news-slider-wrap">
+    <div class="news-grid" id="newsGrid"></div>
+  </div>
+</section>
+
+<!-- ============================= PAGE 9: CSR ============================= -->
+<section class="page-section" id="page-csr">
+  <div class="section-header">
+    <span class="section-tag">Corporate Responsibility</span>
+    <h2 class="section-title">CSR INITIATIVES</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">Our commitment to creating positive impact for communities, environment, and society at large.</p>
+  </div>
+  <div class="csr-content">
+    <div class="csr-grid" id="csrGrid"></div>
+    <!-- CSR Stats -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;padding:3rem 0;">
+      <div style="text-align:center;padding:2rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.5rem;"><i class="fas fa-tree"></i></div>
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--white);">50K<span style="color:var(--primary)">+</span></div>
+        <div style="font-family:var(--font-cond);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">Trees Planted</div>
+      </div>
+      <div style="text-align:center;padding:2rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.5rem;"><i class="fas fa-graduation-cap"></i></div>
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--white);">2500<span style="color:var(--primary)">+</span></div>
+        <div style="font-family:var(--font-cond);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">Students Supported</div>
+      </div>
+      <div style="text-align:center;padding:2rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.5rem;"><i class="fas fa-solar-panel"></i></div>
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--white);">40<span style="color:var(--primary)">%</span></div>
+        <div style="font-family:var(--font-cond);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">Carbon Reduced</div>
+      </div>
+      <div style="text-align:center;padding:2rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:2.5rem;color:var(--primary);margin-bottom:0.5rem;"><i class="fas fa-rupee-sign"></i></div>
+        <div style="font-family:var(--font-display);font-size:3rem;color:var(--white);">₹50<span style="color:var(--primary)">Cr</span></div>
+        <div style="font-family:var(--font-cond);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">CSR Investment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= PAGE 10: CONTACT ============================= -->
+<section class="page-section" id="page-contact">
+  <div class="section-header">
+    <span class="section-tag">Get In Touch</span>
+    <h2 class="section-title">CONTACT US</h2>
+    <div class="title-line"></div>
+    <p class="section-sub">Reach out to our team for inquiries, partnerships, or to request a quote.</p>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <h3>LET'S BUILD SOMETHING GREAT TOGETHER</h3>
+      <p>Whether you're looking for a manufacturing partner, want to explore our products, or need a custom engineering solution — we're here to help.</p>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="contact-detail"><h4>Headquarters</h4><p>Plot 45, Industrial Area Phase-2<br>Jaipur, Rajasthan 302001, India</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+        <div class="contact-detail"><h4>Phone</h4><p>+91 141 4567890<br>+91 98765 43210 (24/7 Support)</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <div class="contact-detail"><h4>Email</h4><p>info@steelforge.in<br>sales@steelforge.in</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+        <div class="contact-detail"><h4>Business Hours</h4><p>Mon – Sat: 8:00 AM – 6:00 PM<br>Plant Operations: 24/7</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form">
+        <h3>SEND A MESSAGE</h3>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Rajesh"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Sharma"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email</label><input type="email" placeholder="rajesh@company.com"></div>
+          <div class="form-group"><label>Phone</label><input type="tel" placeholder="+91 98765 43210"></div>
+        </div>
+        <div class="form-group">
+          <label>Company / Organization</label>
+          <input type="text" placeholder="ABC Industries Pvt. Ltd.">
+        </div>
+        <div class="form-group">
+          <label>Inquiry Type</label>
+          <select>
+            <option>Select inquiry type...</option>
+            <option>Product Inquiry</option>
+            <option>Request for Quote</option>
+            <option>Partnership / Collaboration</option>
+            <option>Career Opportunities</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your requirements..."></textarea>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitForm()"><i class="fas fa-paper-plane"></i> Send Message</button>
+      </div>
+
+      <!-- Map Placeholder -->
+      <div style="margin-top:1.5rem;height:200px;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+        <i class="fas fa-map" style="font-size:3rem;color:var(--primary);opacity:0.5;"></i>
+        <div style="font-family:var(--font-cond);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">SteelForge Industrial Campus — Jaipur, Rajasthan</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offices -->
+  <div style="padding:3rem 6vw;">
+    <div class="section-header" style="padding:0 0 2rem;">
+      <span class="section-tag">Our Locations</span>
+      <h2 class="section-title">OFFICES & PLANTS</h2>
+      <div class="title-line"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;">
+      <div style="padding:1.5rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);border-top:3px solid var(--primary);">
+        <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:0.3rem;">JAIPUR HQ</div>
+        <div style="font-size:0.82rem;color:var(--gray);line-height:1.6;">Plot 45, Industrial Area<br>Jaipur, Rajasthan 302001</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);border-top:3px solid var(--accent);">
+        <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:0.3rem;">MUMBAI OFFICE</div>
+        <div style="font-size:0.82rem;color:var(--gray);line-height:1.6;">BKC, Bandra East<br>Mumbai, Maharashtra 400051</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);border-top:3px solid var(--success);">
+        <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:0.3rem;">DELHI NCR</div>
+        <div style="font-size:0.82rem;color:var(--gray);line-height:1.6;">Sector 18, Noida<br>Uttar Pradesh 201301</div>
+      </div>
+      <div style="padding:1.5rem;background:var(--dark2);border:1px solid rgba(255,255,255,0.05);border-top:3px solid #9b59b6;">
+        <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:0.3rem;">DUBAI INTL</div>
+        <div style="font-size:0.82rem;color:var(--gray);line-height:1.6;">JAFZA, Jebel Ali<br>Dubai, UAE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const teamMembers = [
+  { name: "Vikram Singh Rathore", role: "Chairman & CEO", dept: "management", deptLabel: "Board of Directors", badge: "CEO", exp: "30", phone: "+91 98001 00001", email: "v.rathore@steelforge.in", icon: "fa-user-tie", skills: ["Strategic Leadership", "Business Development", "P&L Management"] },
+  { name: "Sunita Agarwal", role: "Managing Director", dept: "management", deptLabel: "Senior Management", badge: "MD", exp: "25", phone: "+91 98001 00002", email: "s.agarwal@steelforge.in", icon: "fa-user-tie", skills: ["Operations", "Finance", "Strategy"] },
+  { name: "Rajesh Kumar Meena", role: "Chief Operations Officer", dept: "management", deptLabel: "Senior Management", badge: "COO", exp: "22", phone: "+91 98001 00003", email: "r.meena@steelforge.in", icon: "fa-user-tie", skills: ["Operations", "Process Optimization"] },
+  { name: "Dr. Priya Sharma", role: "Chief Technology Officer", dept: "engineering", deptLabel: "Technology & R&D", badge: "CTO", exp: "18", phone: "+91 98001 00004", email: "p.sharma@steelforge.in", icon: "fa-microscope", skills: ["R&D", "Innovation", "Industry 4.0"] },
+  { name: "Anand Prakash Gupta", role: "General Manager — Operations", dept: "operations", deptLabel: "Plant Operations", badge: "GM", exp: "20", phone: "+91 98001 00005", email: "a.gupta@steelforge.in", icon: "fa-industry", skills: ["Plant Management", "Lean Manufacturing"] },
+  { name: "Meera Nair Pillai", role: "GM — Human Resources", dept: "management", deptLabel: "HR & Admin", badge: "GM-HR", exp: "16", phone: "+91 98001 00006", email: "m.nair@steelforge.in", icon: "fa-users-cog", skills: ["Talent Acquisition", "L&D", "Culture"] },
+  { name: "Suresh Lal Yadav", role: "Senior Manager — Production", dept: "operations", deptLabel: "Production", badge: "SR.MGR", exp: "18", phone: "+91 98001 00007", email: "s.yadav@steelforge.in", icon: "fa-cogs", skills: ["Production Planning", "Quality Control"] },
+  { name: "Kavya Krishnamurthy", role: "Senior Manager — Quality", dept: "engineering", deptLabel: "Quality Assurance", badge: "SR.MGR", exp: "14", phone: "+91 98001 00008", email: "k.krishna@steelforge.in", icon: "fa-certificate", skills: ["QMS", "ISO", "Audit"] },
+  { name: "Deepak Jain Oswal", role: "Manager — Mechanical Engineering", dept: "engineering", deptLabel: "Engineering", badge: "MGR", exp: "12", phone: "+91 98001 00009", email: "d.jain@steelforge.in", icon: "fa-drafting-compass", skills: ["CAD/CAM", "Design", "FEA"] },
+  { name: "Pooja Verma Sinha", role: "Manager — Supply Chain", dept: "operations", deptLabel: "Supply Chain", badge: "MGR", exp: "10", phone: "+91 98001 00010", email: "p.verma@steelforge.in", icon: "fa-truck", skills: ["Procurement", "Logistics", "SAP"] },
+  { name: "Ramesh Chandra Bishnoi", role: "Supervisor — Casting Unit", dept: "supervisor", deptLabel: "Manufacturing", badge: "SUPV", exp: "15", phone: "+91 98001 00011", email: "r.bishnoi@steelforge.in", icon: "fa-fire", skills: ["Casting", "Furnace Ops", "Safety"] },
+  { name: "Shalini Tiwari Pandey", role: "Supervisor — Machining", dept: "supervisor", deptLabel: "CNC Machining", badge: "SUPV", exp: "11", phone: "+91 98001 00012", email: "s.tiwari@steelforge.in", icon: "fa-cog", skills: ["CNC", "Precision Machining"] },
+  { name: "Govind Ram Saini", role: "Supervisor — Welding", dept: "supervisor", deptLabel: "Fabrication", badge: "SUPV", exp: "13", phone: "+91 98001 00013", email: "g.saini@steelforge.in", icon: "fa-wrench", skills: ["MIG/TIG Welding", "NDT"] },
+  { name: "Nisha Rawat Bisht", role: "Supervisor — QC Lab", dept: "supervisor", deptLabel: "Quality Lab", badge: "SUPV", exp: "9", phone: "+91 98001 00014", email: "n.rawat@steelforge.in", icon: "fa-flask", skills: ["Metallurgy", "Testing", "Reports"] },
+  { name: "Harish Narayan Bhatt", role: "Supervisor — Maintenance", dept: "supervisor", deptLabel: "Plant Maintenance", badge: "SUPV", exp: "16", phone: "+91 98001 00015", email: "h.bhatt@steelforge.in", icon: "fa-tools", skills: ["Preventive Maint.", "PLC", "Hydraulics"] },
+  { name: "Lalita Devi Chauhan", role: "Supervisor — Safety & EHS", dept: "supervisor", deptLabel: "EHS Department", badge: "SUPV", exp: "8", phone: "+91 98001 00016", email: "l.chauhan@steelforge.in", icon: "fa-hard-hat", skills: ["ISO 45001", "OSHA", "Fire Safety"] },
+];
+
+const servicesData = [
+  { num: "01", icon: "fas fa-fire", title: "Steel Casting", desc: "State-of-the-art casting facilities producing high-grade steel components for automotive, infrastructure, and energy sectors with superior metallurgical properties." },
+  { num: "02", icon: "fas fa-cogs", title: "Precision Machining", desc: "Advanced CNC machining centers capable of ultra-precision manufacturing to tolerances of ±0.001mm for critical aerospace and defense applications." },
+  { num: "03", icon: "fas fa-robot", title: "Robotic Automation", desc: "Industry 4.0 integrated robotic assembly and welding systems that increase throughput by 300% while maintaining zero-defect quality standards." },
+  { num: "04", icon: "fas fa-drafting-compass", title: "Engineering Design", desc: "Full-cycle engineering from concept to production-ready design, including FEA simulation, DFM analysis, and rapid prototyping services." },
+  { num: "05", icon: "fas fa-shield-alt", title: "Quality Assurance", desc: "Comprehensive QMS certified to ISO 9001:2026 with in-house metallurgy lab, NDT services, and 3D CMM inspection capabilities." },
+  { num: "06", icon: "fas fa-hammer", title: "Hot Forging", desc: "High-tonnage forging presses up to 16,000 tonnes producing near-net-shape components with superior mechanical properties and microstructure." },
+  { num: "07", icon: "fas fa-truck", title: "Supply Chain Management", desc: "End-to-end supply chain solutions including raw material sourcing, JIT delivery, inventory management, and global logistics coordination." },
+  { num: "08", icon: "fas fa-leaf", title: "Green Manufacturing", desc: "Eco-friendly manufacturing processes with zero liquid discharge, renewable energy integration, and circular economy principles embedded throughout." },
+];
+
+const productsData = [
+  { cat: "structural", catLabel: "Structural Steel", icon: "fas fa-building", name: "H-Beam & I-Beam Sections", badge: "BESTSELLER", specs: ["Grade: IS 2062", "Sizes: 100–600mm", "Length: 6–12m"] },
+  { cat: "pipes", catLabel: "Pipes & Tubes", icon: "fas fa-circle-notch", name: "Seamless Steel Pipes", badge: "NEW 2026", specs: ["OD: 21.3–508mm", "Grade: API 5L", "Schedule: 40/80/160"] },
+  { cat: "forged", catLabel: "Forged Parts", icon: "fas fa-hammer", name: "Crankshaft Forgings", badge: "CERTIFIED", specs: ["Material: SAE 1045", "Weight: 5–500 kg", "Tolerance: ±0.05mm"] },
+  { cat: "castings", catLabel: "Castings", icon: "fas fa-fire", name: "Alloy Steel Castings", badge: "EXPORT", specs: ["Grade: ASTM A148", "Weight: 1–5000 kg", "Process: Investment"] },
+  { cat: "structural", catLabel: "Structural Steel", icon: "fas fa-layer-group", name: "Hot Rolled Coils", specs: ["Thickness: 2–16mm", "Width: 750–2050mm", "Grade: HRPO"] },
+  { cat: "pipes", catLabel: "Pipes & Tubes", icon: "fas fa-grip-lines", name: "ERW Steel Tubes", badge: "IN STOCK", specs: ["OD: 21–273mm", "Grade: IS 1239", "Length: 4–12m"] },
+  { cat: "forged", catLabel: "Forged Parts", icon: "fas fa-circle", name: "Forged Flanges", specs: ["Class: 150–2500", "Standard: ASME B16.5", "Material: A105"] },
+  { cat: "castings", catLabel: "Castings", icon: "fas fa-cog", name: "Pump Casing Castings", badge: "ISO 9001", specs: ["Material: CF8M SS", "Pressure: Up to 600 PSI", "Finish: Machined"] },
+];
+
+const projectsData = [
+  { cat: "Infrastructure", name: "Delhi-Mumbai Expressway Steel Supply", loc: "Pan India", icon: "fas fa-road", value: "₹850 Cr", duration: "36 months", team: "250 Engineers" },
+  { cat: "Energy", name: "Rajasthan Solar Farm Structures", loc: "Jodhpur, Rajasthan", icon: "fas fa-solar-panel", value: "₹120 Cr", duration: "18 months", team: "80 Engineers" },
+  { cat: "Automotive", name: "Maruti Suzuki OEM Supply Contract", loc: "Manesar, Haryana", icon: "fas fa-car", value: "₹340 Cr", duration: "5 Year Contract", team: "120 Engineers" },
+  { cat: "Defence", name: "DRDO Armour Steel Components", loc: "Hyderabad", icon: "fas fa-shield-alt", value: "Classified", duration: "Ongoing", team: "40 Engineers" },
+  { cat: "Oil & Gas", name: "ONGC Pipeline Components", loc: "Mumbai Offshore", icon: "fas fa-oil-can", value: "₹280 Cr", duration: "24 months", team: "100 Engineers" },
+  { cat: "Railway", name: "Indian Railways Wheel Axle Supply", loc: "Kapurthala, Punjab", icon: "fas fa-train", value: "₹190 Cr", duration: "3 Year Contract", team: "90 Engineers" },
+];
+
+const careersData = [
+  { title: "Senior Mechanical Engineer", dept: "Engineering", type: "Full-time", location: "Jaipur", exp: "7+ years", salary: "₹18–25 LPA", skills: ["Solidworks", "FEA", "GD&T", "ASME Standards"] },
+  { title: "Production Manager", dept: "Operations", type: "Full-time", location: "Jaipur", exp: "10+ years", salary: "₹20–28 LPA", skills: ["Lean Mfg", "SAP", "ISO 9001", "Six Sigma"] },
+  { title: "Plant Supervisor — CNC Machining", dept: "Manufacturing", type: "Full-time", location: "Bhiwadi", exp: "5+ years", salary: "₹8–12 LPA", skills: ["CNC Operations", "Quality Control", "5S"] },
+  { title: "Quality Control Manager", dept: "Quality", type: "Full-time", location: "Jaipur", exp: "8+ years", salary: "₹15–22 LPA", skills: ["CMM", "NDT", "ISO 9001", "SPC"] },
+  { title: "Automation Engineer", dept: "Technology", type: "Full-time", location: "Jaipur/Mumbai", exp: "4+ years", salary: "₹12–18 LPA", skills: ["PLC", "SCADA", "Robotics", "Python"] },
+  { title: "HR Business Partner", dept: "Human Resources", type: "Full-time", location: "Jaipur", exp: "6+ years", salary: "₹10–14 LPA", skills: ["HR Analytics", "ER", "Talent Management"] },
+];
+
+const newsData = [
+  { cat: "Company News", icon: "fas fa-trophy", title: "SteelForge Wins 'Best Industrial Company 2026' Award", excerpt: "We are proud to announce that SteelForge Industries has been recognized as India's Best Industrial Company at the National Manufacturing Excellence Awards 2026.", date: "Apr 28, 2026", author: "PR Team", views: "2.4K" },
+  { cat: "Innovation", icon: "fas fa-robot", title: "AI-Powered Quality Control System Goes Live at Jaipur Plant", excerpt: "Our latest deployment of machine vision and AI quality control reduces defect rates by 94% and enables real-time process optimization across production lines.", date: "Apr 15, 2026", author: "Tech Team", views: "1.8K" },
+  { cat: "Sustainability", icon: "fas fa-leaf", title: "SteelForge Achieves 40% Carbon Reduction Target Ahead of Schedule", excerpt: "Two years ahead of our 2028 target, we have successfully reduced carbon emissions by 40% through renewable energy and process innovations.", date: "Mar 30, 2026", author: "CSR Team", views: "3.1K" },
+  { cat: "Company News", icon: "fas fa-handshake", title: "Strategic Alliance with Korean Steel Giant HyundaiSteel Announced", excerpt: "This landmark partnership will enable joint technology development and market expansion across South and Southeast Asia.", date: "Mar 18, 2026", author: "Mgmt", views: "5.2K" },
+  { cat: "Industry", icon: "fas fa-chart-line", title: "India Steel Demand to Hit Record 160 MT in FY 2026-27", excerpt: "India's rapidly growing infrastructure investment is creating unprecedented demand for quality steel products, and SteelForge is positioned to capture maximum market share.", date: "Mar 5, 2026", author: "Research", views: "1.2K" },
+  { cat: "Innovation", icon: "fas fa-industry", title: "Phase-3 Plant Expansion Creates 500+ New Jobs in Jaipur", excerpt: "Our ₹650 crore plant expansion in Jaipur's industrial area is now operational, adding significant production capacity and creating direct employment.", date: "Feb 20, 2026", author: "Operations", views: "2.7K" },
+];
+
+const csrData = [
+  { icon: "🌱", title: "Green India Initiative", text: "Our flagship environmental program has planted 50,000+ trees across Rajasthan, restored 200+ acres of degraded land, and established three bio-diversity parks near our plants.", prog1: { label: "Tree Plantation Target", val: 78 }, prog2: { label: "Land Restoration Goal", val: 65 } },
+  { icon: "📚", title: "Vidya Jyot — Education Program", text: "Supporting quality education for 2,500+ underprivileged children through scholarship programs, digital learning labs in 35 government schools, and annual skill development camps.", prog1: { label: "Schools Covered", val: 87 }, prog2: { label: "Scholarship Distribution", val: 92 } },
+  { icon: "🏥", title: "Arogya — Community Health", text: "Annual free health camps benefiting 15,000+ villagers, mobile medical units serving 40 remote villages, and construction of two primary health centers in partnership with Rajasthan government.", prog1: { label: "Health Camps Conducted", val: 95 }, prog2: { label: "Beneficiaries Reached", val: 70 } },
+  { icon: "💧", title: "Jal Sanchay — Water Conservation", text: "Water harvesting structures across 15 villages, zero liquid discharge achieved at all 12 plants, and 60% reduction in freshwater consumption through advanced recycling systems.", prog1: { label: "ZLD Achievement", val: 100 }, prog2: { label: "Water Recycling Rate", val: 82 } },
+];
+
+const milestones = [
+  { year: "1998", event: "SteelForge founded in Jaipur with 12 employees and one small fabrication unit." },
+  { year: "2003", event: "First ISO 9001 certification. Revenue crosses ₹10 crore. 150 employees." },
+  { year: "2008", event: "New casting facility opens. Export begins to UAE and Saudi Arabia." },
+  { year: "2012", event: "IPO listed on BSE. ₹500 Cr turnover milestone. 1,500 employees." },
+  { year: "2016", event: "Industry 4.0 transformation begins. First robotic production line installed." },
+  { year: "2020", event: "5,000 employee milestone. 12 plants operational across India." },
+  { year: "2024", event: "Net-zero manufacturing roadmap launched. AI quality control deployed." },
+  { year: "2026", event: "40% carbon reduction achieved. Revenue crosses ₹3,000 crore." },
+];
+
+// ============================================================
+// RENDER FUNCTIONS
+// ============================================================
+
+let currentTeamFilter = 'all';
+let teamPage = 0;
+const teamPerPage = 8;
+
+function renderTimeline() {
+  const container = document.getElementById('timeline');
+  if (!container) return;
+  container.innerHTML = milestones.map((m, i) => `
+    <div style="display:flex;gap:2rem;margin-bottom:2rem;align-items:flex-start;${i%2===0?'flex-direction:row':'flex-direction:row-reverse'}">
+      <div style="flex:1;${i%2===0?'text-align:right':'text-align:left'}">
+        <div style="font-family:var(--font-display);font-size:2rem;color:var(--primary);line-height:1;">${m.year}</div>
+        <p style="font-size:0.88rem;color:var(--gray);line-height:1.6;margin-top:0.3rem;">${m.event}</p>
+      </div>
+      <div style="width:16px;height:16px;background:var(--primary);border-radius:50%;flex-shrink:0;margin-top:0.3rem;position:relative;z-index:1;box-shadow:0 0 15px rgba(255,107,0,0.5);"></div>
+      <div style="flex:1;"></div>
+    </div>
+  `).join('');
+}
+
+function renderServices() {
+  const g = document.getElementById('servicesGrid');
+  if (!g) return;
+  g.innerHTML = servicesData.map(s => `
+    <div class="service-card">
+      <div class="service-num">${s.num}</div>
+      <div class="service-icon"><i class="${s.icon}"></i></div>
+      <div class="service-title">${s.title}</div>
+      <div class="service-desc">${s.desc}</div>
+      <div class="service-link">Learn More <i class="fas fa-arrow-right"></i></div>
+    </div>
+  `).join('');
+}
+
+function renderProducts(filter='all') {
+  const g = document.getElementById('productsGrid');
+  if (!g) return;
+  const data = filter === 'all' ? productsData : productsData.filter(p => p.cat === filter);
+  g.innerHTML = data.map(p => `
+    <div class="product-card">
+      <div class="product-img">
+        <i class="${p.icon}"></i>
+        ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+      </div>
+      <div class="product-body">
+        <div class="product-cat">${p.catLabel}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-specs">${p.specs.map(s=>`<span class="spec-tag">${s}</span>`).join('')}</div>
+        <a class="btn btn-primary" href="#" onclick="showPage('contact')" style="font-size:0.78rem;padding:0.6rem 1.2rem;"><i class="fas fa-file-alt"></i> Request Quote</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(filter, btn) {
+  document.querySelectorAll('.products-filter .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(filter);
+}
+
+function renderTeam() {
+  const g = document.getElementById('teamGrid');
+  if (!g) return;
+  const filtered = currentTeamFilter === 'all' ? teamMembers : teamMembers.filter(m => m.dept === currentTeamFilter);
+  const totalPages = Math.ceil(filtered.length / teamPerPage);
+  const pageData = filtered.slice(teamPage * teamPerPage, (teamPage + 1) * teamPerPage);
+
+  document.getElementById('teamPageCur').textContent = teamPage + 1;
+  document.getElementById('teamPageTotal').textContent = totalPages;
+
+  g.innerHTML = pageData.map(m => `
+    <div class="team-card">
+      <div class="team-card-top">
+        <div class="team-avatar"><i class="fas ${m.icon}"></i></div>
+        <div class="team-badge">${m.badge}</div>
+      </div>
+      <div class="team-body">
+        <div class="team-name">${m.name}</div>
+        <div class="team-role">${m.role}</div>
+        <div class="team-dept"><i class="fas fa-building"></i> ${m.deptLabel}</div>
+        <div class="team-info">
+          <div class="team-info-row"><i class="fas fa-phone"></i> ${m.phone}</div>
+          <div class="team-info-row"><i class="fas fa-envelope"></i> ${m.email}</div>
+          <div class="team-info-row"><i class="fas fa-star"></i> ${m.exp}+ Years Experience</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-bottom:0.5rem;">
+          ${m.skills.map(s=>`<span style="padding:0.2rem 0.6rem;background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.2);font-size:0.68rem;color:var(--accent);font-family:var(--font-cond);">${s}</span>`).join('')}
+        </div>
+        <div class="team-social">
+          <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-btn"><i class="fas fa-envelope"></i></a>
+          <a href="#" class="social-btn"><i class="fas fa-phone"></i></a>
+        </div>
+        <div class="team-exp">${m.exp}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterTeam(filter, btn) {
+  currentTeamFilter = filter;
+  teamPage = 0;
+  document.querySelectorAll('#page-team .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTeam();
+}
+
+function prevTeamPage() {
+  const filtered = currentTeamFilter === 'all' ? teamMembers : teamMembers.filter(m => m.dept === currentTeamFilter);
+  const totalPages = Math.ceil(filtered.length / teamPerPage);
+  teamPage = (teamPage - 1 + totalPages) % totalPages;
+  renderTeam();
+}
+
+function nextTeamPage() {
+  const filtered = currentTeamFilter === 'all' ? teamMembers : teamMembers.filter(m => m.dept === currentTeamFilter);
+  const totalPages = Math.ceil(filtered.length / teamPerPage);
+  teamPage = (teamPage + 1) % totalPages;
+  renderTeam();
+}
+
+function renderProjects() {
+  const g = document.getElementById('projectsGrid');
+  if (!g) return;
+  g.innerHTML = projectsData.map((p, i) => `
+    <div class="project-card">
+      <div class="project-visual"><i class="${p.icon}"></i></div>
+      <div class="project-overlay">
+        <div class="project-cat">${p.cat}</div>
+        <div class="project-name">${p.name}</div>
+        <div class="project-loc"><i class="fas fa-map-marker-alt"></i> ${p.loc}</div>
+        <div class="project-stats">
+          <div class="pstat"><div class="pstat-num">${p.value}</div><div class="pstat-label">Contract Value</div></div>
+          <div class="pstat"><div class="pstat-num">${p.duration}</div><div class="pstat-label">Duration</div></div>
+          <div class="pstat"><div class="pstat-num">${p.team}</div><div class="pstat-label">Team Size</div></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderCareers() {
+  const g = document.getElementById('careersGrid');
+  if (!g) return;
+  g.innerHTML = careersData.map(j => `
+    <div class="job-card">
+      <div class="job-header">
+        <div class="job-title">${j.title}</div>
+        <div class="job-type">${j.type}</div>
+      </div>
+      <div class="job-dept"><i class="fas fa-building"></i> ${j.dept}</div>
+      <div class="job-details">
+        <span class="job-detail"><i class="fas fa-map-marker-alt"></i> ${j.location}</span>
+        <span class="job-detail"><i class="fas fa-clock"></i> ${j.exp}</span>
+      </div>
+      <div class="job-skills">${j.skills.map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div>
+      <div class="job-footer">
+        <div class="job-salary">${j.salary} <span>per annum</span></div>
+        <a class="btn btn-primary" href="#" onclick="showPage('contact')" style="font-size:0.75rem;padding:0.5rem 1rem;"><i class="fas fa-paper-plane"></i> Apply Now</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderNews() {
+  const g = document.getElementById('newsGrid');
+  if (!g) return;
+  g.innerHTML = newsData.map(n => `
+    <div class="news-card">
+      <div class="news-img"><i class="${n.icon}"></i><div class="news-date">${n.date}</div></div>
+      <div class="news-body">
+        <div class="news-cat">${n.cat}</div>
+        <div class="news-title">${n.title}</div>
+        <div class="news-excerpt">${n.excerpt}</div>
+        <div class="news-meta">
+          <span><i class="fas fa-user"></i> ${n.author}</span>
+          <span><i class="fas fa-eye"></i> ${n.views} views</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderCSR() {
+  const g = document.getElementById('csrGrid');
+  if (!g) return;
+  g.innerHTML = csrData.map(c => `
+    <div class="csr-card">
+      <div class="csr-icon">${c.icon}</div>
+      <div class="csr-title">${c.title}</div>
+      <div class="csr-text">${c.text}</div>
+      <div class="csr-progress">
+        <div class="csr-prog-label"><span>${c.prog1.label}</span><span>${c.prog1.val}%</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${c.prog1.val}%"></div></div>
+        <div class="csr-prog-label"><span>${c.prog2.label}</span><span>${c.prog2.val}%</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${c.prog2.val}%"></div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// SLIDER
+// ============================================================
+let currentSlide = 0;
+let slideInterval;
+
+function goToSlide(n) {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.dot');
+  slides.forEach(s => s.classList.remove('active'));
+  dots.forEach(d => d.classList.remove('active'));
+  currentSlide = n;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  const slides = document.querySelectorAll('.hero-slide');
+  goToSlide((currentSlide + 1) % slides.length);
+  resetInterval();
+}
+
+function prevSlide() {
+  const slides = document.querySelectorAll('.hero-slide');
+  goToSlide((currentSlide - 1 + slides.length) % slides.length);
+  resetInterval();
+}
+
+function resetInterval() {
+  clearInterval(slideInterval);
+  slideInterval = setInterval(nextSlide, 5000);
+}
+
+slideInterval = setInterval(nextSlide, 5000);
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showPage(pageName) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+  const targetPage = document.getElementById('page-' + pageName);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Highlight nav
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(`'${pageName}'`)) {
+      a.classList.add('active');
+    }
+  });
+
+  // Close mobile nav
+  document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('open');
+
+  // Render page content on demand
+  if (pageName === 'about') renderTimeline();
+  if (pageName === 'services') renderServices();
+  if (pageName === 'products') renderProducts();
+  if (pageName === 'team') renderTeam();
+  if (pageName === 'projects') renderProjects();
+  if (pageName === 'careers') renderCareers();
+  if (pageName === 'news') renderNews();
+  if (pageName === 'csr') renderCSR();
+}
+
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+  document.getElementById('mobileOverlay').classList.toggle('open');
+}
+
+// ============================================================
+// SCROLL & BACK TO TOP
+// ============================================================
+window.addEventListener('scroll', () => {
+  const bt = document.getElementById('backTop');
+  if (window.scrollY > 300) bt.classList.add('visible');
+  else bt.classList.remove('visible');
+});
+
+// ============================================================
+// COUNTER ANIMATION
+// ============================================================
+function animateCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = parseInt(el.getAttribute('data-target'));
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.floor(current).toLocaleString('en-IN');
+      if (current >= target) clearInterval(timer);
+    }, 16);
+  });
+}
+setTimeout(animateCounters, 2500);
+
+// ============================================================
+// FORM SUBMIT
+// ============================================================
+function submitForm() {
+  const btn = event.target;
+  btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+  btn.style.background = 'var(--success)';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+    btn.style.background = '';
+  }, 3000);
+}
+
+// ============================================================
+// PAGE LOADER
+// ============================================================
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    // Set home as active nav
+    document.querySelectorAll('.nav-links a')[0].classList.add('active');
+  }, 2200);
+});
+</script>
+</body>
+</html>
